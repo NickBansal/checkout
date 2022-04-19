@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import itemPrices from './itemPrices';
 
 const listItem = 'border-dotted border-2 p-4 text-lg flex justify-between border-black items-center border-t-0';
 const buttonWrapper = 'border-dotted border-black border-l-2 pl-4 w-1/5 md:w-1/4 text-center';
@@ -32,7 +34,7 @@ export default function Checkout() {
     <div className="mx-0 my-8 md:mx-auto w-full lg:w-1/2">
       <ul>
         {Object.keys(items).map((item, index) => {
-          const listItemStyled = index === 1 ? listItem : `${listItem} border-t-2`;
+          const listItemStyled = index !== 0 ? listItem : `${listItem} border-t-2`;
           const disabled = items[item] === 0;
           return (
             <li key={item}>
@@ -47,7 +49,7 @@ export default function Checkout() {
                 <p>
                   Discount:
                   {' '}
-                  {items[item]}
+                  0
                 </p>
                 <div className={buttonWrapper}>
                   <button

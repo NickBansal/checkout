@@ -46,4 +46,10 @@ describe('<Checkout />', () => {
     expect(screen.getAllByRole('button')[1]).not.toBeDisabled();
     expect(screen.getAllByRole('button')[3]).not.toBeDisabled();
   });
+
+  it('should increase the total price when a face mask is added', () => {
+    render(<App />);
+    userEvent.click(screen.getAllByRole('button')[0]);
+    expect(screen.getByText('Total: £2.50', { exact: false })).toBeInTheDocument();
+  });
 });
