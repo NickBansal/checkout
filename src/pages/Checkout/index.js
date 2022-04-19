@@ -29,6 +29,7 @@ export default function Checkout() {
       ...prevState,
       [item]: values[item] - 1,
     }));
+    setTotal((Number(total) - Number(itemPrices[item])).toFixed(2));
   };
 
   return (
