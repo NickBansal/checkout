@@ -37,14 +37,14 @@ export default function Checkout() {
             </li>
           );
         })}
-        <li>
-          <div className={`${listItem} border-t-0`}>
+        <li className="flex justify-end">
+          <div className={`${listItem} border-x-0 w-1/2`}>
             <p>Total Discount</p>
             <p>{discount}</p>
           </div>
         </li>
-        <li>
-          <div className={`${listItem} border-t-0`}>
+        <li className="flex justify-end">
+          <div className={`${listItem} border-x-0 w-1/2 `}>
             <p>Total</p>
             <p>
               £
