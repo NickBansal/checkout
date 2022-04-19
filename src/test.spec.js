@@ -51,7 +51,6 @@ describe('<Checkout />', () => {
     render(<App />);
     userEvent.click(screen.getAllByRole('button')[0]);
     expect(screen.getByText('£2.50')).toBeInTheDocument();
-
     userEvent.dblClick(screen.getAllByRole('button')[0]);
     expect(screen.getByText('£7.50')).toBeInTheDocument();
   });
@@ -60,7 +59,6 @@ describe('<Checkout />', () => {
     render(<App />);
     userEvent.click(screen.getAllByRole('button')[2]);
     expect(screen.getByText('£0.65')).toBeInTheDocument();
-
     userEvent.dblClick(screen.getAllByRole('button')[2]);
     expect(screen.getByText('£1.95')).toBeInTheDocument();
   });
@@ -70,5 +68,18 @@ describe('<Checkout />', () => {
     userEvent.dblClick(screen.getAllByRole('button')[0]);
     userEvent.click(screen.getAllByRole('button')[1]);
     expect(screen.getByText('£2.50')).toBeInTheDocument();
+  });
+
+  it('should decrease the total price when a toilet paper is subtracted', () => {
+    render(<App />);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.click(screen.getAllByRole('button')[3]);
+    expect(screen.getByText('£0.65')).toBeInTheDocument();
+  });
+
+  it('should apply a discount on face masks, two for £4', () => {
+    render(<App />);
+    userEvent.dblClick(screen.getAllByRole('button')[0]);
+    expect(screen.getByText('discount (1)')).toBeInTheDocument();
   });
 });
