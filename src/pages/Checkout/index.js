@@ -13,6 +13,18 @@ export default function Checkout() {
   const [total, setTotal] = useState(0);
   const [discount, setDiscount] = useState(0);
 
+  const addToBasket = (values, item) => {
+    const newList = { ...items };
+    setItems((prevState) => ({
+      ...prevState,
+      [item]: values[item] + 1,
+    }));
+  };
+
+  const subtractFromBasket = (values, item) => {
+    console.log(values);
+  };
+
   return (
     <div className="mx-0 my-8 md:mx-auto w-full lg:w-1/2">
       <ul>
@@ -28,10 +40,14 @@ export default function Checkout() {
                   {items[item]}
                   )
                 </p>
-                <p>Discount: 0</p>
+                <p>
+                  Discount:
+                  {' '}
+                  {items[item]}
+                </p>
                 <div className={buttonWrapper}>
-                  <button type="button" className={buttonItem}>+</button>
-                  <button type="button" className={buttonItem}>-</button>
+                  <button type="button" className={buttonItem} onClick={() => addToBasket(items, item)}>+</button>
+                  <button type="button" className={buttonItem} onClick={() => subtractFromBasket(items, item)}>-</button>
                 </div>
               </div>
             </li>

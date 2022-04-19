@@ -12,6 +12,6 @@ describe('<Checkout />', () => {
   it('should update the total of face masks when a face mask is added', () => {
     render(<App />);
     userEvent.click(screen.getAllByRole('button')[0]);
-    expect(screen.getByText('2.50')).toBeInTheDocument();
+    expect(screen.getByText('Face Masks (1)')).toBeInTheDocument();
   });
 });
