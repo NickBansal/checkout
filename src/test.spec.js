@@ -50,6 +50,18 @@ describe('<Checkout />', () => {
   it('should increase the total price when a face mask is added', () => {
     render(<App />);
     userEvent.click(screen.getAllByRole('button')[0]);
-    expect(screen.getByText('Total: £2.50', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('£2.50')).toBeInTheDocument();
+
+    userEvent.dblClick(screen.getAllByRole('button')[0]);
+    expect(screen.getByText('£7.50')).toBeInTheDocument();
+  });
+
+  it('should increase the total price when a toilet paper is added', () => {
+    render(<App />);
+    userEvent.click(screen.getAllByRole('button')[2]);
+    expect(screen.getByText('£0.65')).toBeInTheDocument();
+
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    expect(screen.getByText('£1.95')).toBeInTheDocument();
   });
 });

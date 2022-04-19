@@ -13,14 +13,15 @@ export default function Checkout() {
     'Face Masks': 0,
     'Toilet Paper': 0,
   });
-  const [total, setTotal] = useState(0);
-  const [discount, setDiscount] = useState(0);
+  const [total, setTotal] = useState('0');
+  const [discount, setDiscount] = useState('0');
 
   const addToBasket = (values, item) => {
     setItems((prevState) => ({
       ...prevState,
       [item]: values[item] + 1,
     }));
+    setTotal((Number(total) + Number(itemPrices[item])).toFixed(2));
   };
 
   const subtractFromBasket = (values, item) => {
@@ -76,13 +77,13 @@ export default function Checkout() {
         })}
         <li className="flex justify-end">
           <div className={`${listItem} border-x-0 w-1/2`}>
-            <p>Total Discount</p>
+            <p>Total Discount:</p>
             <p>{discount}</p>
           </div>
         </li>
         <li className="flex justify-end">
           <div className={`${listItem} border-x-0 w-1/2 `}>
-            <p>Total</p>
+            <p>Total:</p>
             <p>
               £
               {total}
