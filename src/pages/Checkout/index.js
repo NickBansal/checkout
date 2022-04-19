@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 const listItem = 'border-dotted border-2 p-4 text-lg flex justify-between border-black items-center border-t-0';
 const buttonWrapper = 'border-dotted border-black border-l-2 pl-4 w-1/5 md:w-1/4 text-center';
 const buttonItem = 'mx-1 bg-orange-200 hover:bg-orange-600 transition-colors text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px]';
+const disabledBtn = 'cursor-not-allowed bg-gray-200 mx-1 text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px] text-white';
 
 export default function Checkout() {
   const [items, setItems] = useState({
@@ -32,6 +33,7 @@ export default function Checkout() {
       <ul>
         {Object.keys(items).map((item, index) => {
           const listItemStyled = index === 1 ? listItem : `${listItem} border-t-2`;
+          const disabled = items[item] === 0;
           return (
             <li key={item}>
               <div className={listItemStyled}>
@@ -58,9 +60,9 @@ export default function Checkout() {
                   </button>
                   <button
                     type="button"
-                    className={buttonItem}
+                    className={disabled ? disabledBtn : buttonItem}
                     onClick={() => subtractFromBasket(items, item)}
-                    disabled={items[item] === 0}
+                    disabled={disabled}
                   >
                     -
 
