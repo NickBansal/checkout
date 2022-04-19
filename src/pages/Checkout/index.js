@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 
 import itemPrices from './itemPrices';
 
-const listItem = 'border-dotted border-2 p-4 text-lg flex justify-between border-black items-center border-t-0';
-const buttonWrapper = 'border-dotted border-black border-l-2 pl-4 w-1/5 md:w-1/4 text-center';
+const listItem = 'border-dotted border-2 p-4 text-base flex justify-between border-black items-center border-t-0';
+const buttonWrapper = 'border-dotted border-black border-l-2 pl-4 w-1/3 md:w-1/4 text-center';
 const buttonItem = 'mx-1 bg-orange-200 hover:bg-orange-600 transition-colors text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px]';
 const disabledBtn = 'cursor-not-allowed bg-gray-200 mx-1 text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px] text-white';
 
@@ -52,8 +52,14 @@ export default function Checkout() {
     return null;
   }
   return (
-    <div className="mx-0 my-8 md:mx-auto w-full lg:w-1/2">
+    <div className="mx-0 my-12 md:mx-auto w-full lg:w-4/5">
       <ul>
+        <li className="flex w-4/5">
+          <p className="w-1/3 ml-4 text-xl font-bold">Item</p>
+          <p className="w-1/3 text-xl font-bold -ml-4">Amount</p>
+          <p className="w-1/3 text-xl font-bold -ml-2">Discount</p>
+        </li>
+
         {shoppingItems.map((item, index) => {
           const listItemStyled = index !== 0 ? listItem : `${listItem} border-t-2`;
           const disabled = items[item].quantity === 0;
@@ -61,16 +67,23 @@ export default function Checkout() {
           return (
             <li key={item}>
               <div className={listItemStyled}>
-                <p className="w-1/2">
+                <p className="w-1/3 block md:inline-block">
                   {item}
                   {' '}
-                  (
-                  {items[item].quantity}
-                  )
+                  <span className="block md:inline-block">
+                    {' '}
+                    (
+                    {items[item].quantity}
+                    )
+
+                  </span>
+
                 </p>
-                <p className="w-1/2">
-                  Discount:
-                  {' '}
+                <p className="w-1/3">
+                  £
+                  {Number(itemPrices[item]).toFixed(2)}
+                </p>
+                <p className="w-1/3">
                   {items[item].discount}
                 </p>
                 <div className={buttonWrapper}>
