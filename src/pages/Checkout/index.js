@@ -13,7 +13,7 @@ export default function Checkout() {
 
   const [items, setItems] = useState(undefined);
   const [total, setTotal] = useState('0');
-  const [totalDiscount, setTotalDiscount] = useState('0');
+  const [totalDiscount, setTotalDiscount] = useState(0);
 
   useEffect(() => {
     setItems(shoppingItems.reduce((acc, item) => {
@@ -28,9 +28,14 @@ export default function Checkout() {
 
   const addItemDiscounts = (item, previous, quantity) => {
     if (item === 'Face Masks' && quantity % 2 === 0) {
+      setTotalDiscount((prevState) => {
+        console.log(totalDiscount, ' <<<<<<<<<');
+        return totalDiscount + 1;
+      });
       return previous + 1;
     }
     if (item === 'Toilet Paper' && quantity % 6 === 0) {
+      setTotalDiscount((prevState) => prevState + 0.65);
       return previous + 0.65;
     }
     return previous;

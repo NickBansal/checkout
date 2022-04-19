@@ -126,5 +126,15 @@ describe('<Checkout />', () => {
     expect(screen.getByText('- £1.30')).toBeInTheDocument();
     userEvent.dblClick(screen.getAllByRole('button')[3]);
     expect(screen.queryByText('- £1.30')).not.toBeInTheDocument();
+    expect(screen.getByText('- £0.65')).toBeInTheDocument();
+  });
+
+  it('should tally up the total discounts', () => {
+    render(<App />);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[0]);
+    expect(screen.getByText('£1.65')).toBeInTheDocument();
   });
 });
