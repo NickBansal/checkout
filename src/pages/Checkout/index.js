@@ -14,7 +14,6 @@ export default function Checkout() {
   const [discount, setDiscount] = useState(0);
 
   const addToBasket = (values, item) => {
-    const newList = { ...items };
     setItems((prevState) => ({
       ...prevState,
       [item]: values[item] + 1,
@@ -22,7 +21,10 @@ export default function Checkout() {
   };
 
   const subtractFromBasket = (values, item) => {
-    console.log(values);
+    setItems((prevState) => ({
+      ...prevState,
+      [item]: values[item] - 1,
+    }));
   };
 
   return (
