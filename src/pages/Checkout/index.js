@@ -36,6 +36,17 @@ export default function Checkout() {
     return previous;
   };
 
+  const subtractItemDiscounts = (item, previous, quantity) => {
+    const lowerAmount = quantity < items[item].quantity;
+    if (item === 'Face Masks' && lowerAmount && (quantity - 1) % 2 === 0) {
+      return previous - 1;
+    }
+    if (item === 'Toilet Paper' && lowerAmount && (quantity + 1) % 6 === 0) {
+      return previous - 0.65;
+    }
+    return previous;
+  };
+
   const addToBasket = (item, values) => {
     setItems((prevState) => {
       const quantity = prevState[item].quantity + 1;
@@ -52,13 +63,17 @@ export default function Checkout() {
   };
 
   const subtractFromBasket = (item, values) => {
-    setItems((prevState) => ({
-      ...prevState,
-      [item]: {
-        ...values,
-        quantity: prevState[item].quantity - 1,
-      },
-    }));
+    setItems((prevState) => {
+      const quantity = prevState[item].quantity - 1;
+      return ({
+        ...prevState,
+        [item]: {
+          ...values,
+          quantity,
+          discount: subtractItemDiscounts(item, prevState[item].discount, quantity),
+        },
+      });
+    });
     setTotal((Number(total) - Number(itemPrices[item])).toFixed(2));
   };
 

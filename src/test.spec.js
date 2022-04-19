@@ -90,6 +90,14 @@ describe('<Checkout />', () => {
     expect(screen.getByText('- £3.00')).toBeInTheDocument();
   });
 
+  it('should take away the face masks discount if items are deleted', () => {
+    render(<App />);
+    userEvent.dblClick(screen.getAllByRole('button')[0]);
+    expect(screen.getByText('- £1.00')).toBeInTheDocument();
+    userEvent.click(screen.getAllByRole('button')[1]);
+    expect(screen.queryByText('- £1.00')).not.toBeInTheDocument();
+  });
+
   it('should apply a discount on toilet paper, 6 for 5', () => {
     render(<App />);
     expect(screen.getAllByText('£0')).toHaveLength(4);
@@ -105,5 +113,18 @@ describe('<Checkout />', () => {
     userEvent.dblClick(screen.getAllByRole('button')[2]);
     userEvent.dblClick(screen.getAllByRole('button')[2]);
     expect(screen.getByText('- £1.95')).toBeInTheDocument();
+  });
+
+  it('should take away the toilet paper discount if items are deleted', () => {
+    render(<App />);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    expect(screen.getByText('- £1.30')).toBeInTheDocument();
+    userEvent.dblClick(screen.getAllByRole('button')[3]);
+    expect(screen.queryByText('- £1.30')).not.toBeInTheDocument();
   });
 });
