@@ -64,4 +64,11 @@ describe('<Checkout />', () => {
     userEvent.dblClick(screen.getAllByRole('button')[2]);
     expect(screen.getByText('£1.95')).toBeInTheDocument();
   });
+
+  it('should decrease the total price when a face mask is subtracted', () => {
+    render(<App />);
+    userEvent.dblClick(screen.getAllByRole('button')[0]);
+    userEvent.click(screen.getAllByRole('button')[1]);
+    expect(screen.getByText('£2.50')).toBeInTheDocument();
+  });
 });
