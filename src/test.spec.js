@@ -39,11 +39,11 @@ describe('<Checkout />', () => {
 
   it('should not allow the user to go below zero and it should disable to button', () => {
     render(<App />);
-    expect(screen.getAllByRole('button')[2]).toBeDisabled();
-    expect(screen.getAllByRole('button')[2]).toBeDisabled();
+    expect(screen.getAllByRole('button')[1]).toBeDisabled();
+    expect(screen.getAllByRole('button')[3]).toBeDisabled();
     userEvent.click(screen.getAllByRole('button')[0]);
     userEvent.click(screen.getAllByRole('button')[2]);
-    expect(screen.getAllByRole('button')[2]).not.toBeDisabled();
-    expect(screen.getAllByRole('button')[2]).not.toBeDisabled();
+    expect(screen.getAllByRole('button')[1]).not.toBeDisabled();
+    expect(screen.getAllByRole('button')[3]).not.toBeDisabled();
   });
 });

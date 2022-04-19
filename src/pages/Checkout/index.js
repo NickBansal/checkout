@@ -48,8 +48,23 @@ export default function Checkout() {
                   {items[item]}
                 </p>
                 <div className={buttonWrapper}>
-                  <button type="button" className={buttonItem} onClick={() => addToBasket(items, item)}>+</button>
-                  <button type="button" className={buttonItem} onClick={() => subtractFromBasket(items, item)}>-</button>
+                  <button
+                    type="button"
+                    className={buttonItem}
+                    onClick={() => addToBasket(items, item)}
+                  >
+                    +
+
+                  </button>
+                  <button
+                    type="button"
+                    className={buttonItem}
+                    onClick={() => subtractFromBasket(items, item)}
+                    disabled={items[item] === 0}
+                  >
+                    -
+
+                  </button>
                 </div>
               </div>
             </li>
