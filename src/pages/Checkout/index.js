@@ -28,14 +28,11 @@ export default function Checkout() {
 
   const addItemDiscounts = (item, previous, quantity) => {
     if (item === 'Face Masks' && quantity % 2 === 0) {
-      setTotalDiscount((prevState) => {
-        console.log(totalDiscount, ' <<<<<<<<<');
-        return totalDiscount + 1;
-      });
+      setTotalDiscount(totalDiscount + 1);
       return previous + 1;
     }
     if (item === 'Toilet Paper' && quantity % 6 === 0) {
-      setTotalDiscount((prevState) => prevState + 0.65);
+      setTotalDiscount(totalDiscount + 0.65);
       return previous + 0.65;
     }
     return previous;
@@ -44,9 +41,11 @@ export default function Checkout() {
   const subtractItemDiscounts = (item, previous, quantity) => {
     const lowerAmount = quantity < items[item].quantity;
     if (item === 'Face Masks' && lowerAmount && (quantity - 1) % 2 === 0) {
+      setTotalDiscount(totalDiscount - 1);
       return previous - 1;
     }
     if (item === 'Toilet Paper' && lowerAmount && (quantity + 1) % 6 === 0) {
+      setTotalDiscount(totalDiscount - 0.65);
       return previous - 0.65;
     }
     return previous;
@@ -120,7 +119,7 @@ export default function Checkout() {
                   {Number(itemPrices[item]).toFixed(2)}
                 </p>
                 <p className={`w-1/3 ${discountText}`}>
-                  {isDiscounted ? `- £${Number(items[item].discount).toFixed(2)}` : '£0'}
+                  {isDiscounted ? `- £${Number(items[item].discount).toFixed(2)}` : '£0.00'}
                 </p>
                 <div className={buttonWrapper}>
                   <button
@@ -150,7 +149,7 @@ export default function Checkout() {
             <p>Total Discount:</p>
             <p>
               £
-              {totalDiscount}
+              {totalDiscount.toFixed(2)}
             </p>
           </div>
         </li>

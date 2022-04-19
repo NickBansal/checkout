@@ -81,7 +81,7 @@ describe('<Checkout />', () => {
 
   it('should apply a discount on face masks, two for £4', () => {
     render(<App />);
-    expect(screen.getAllByText('£0')).toHaveLength(4);
+    expect(screen.getAllByText('£0.00')).toHaveLength(3);
     userEvent.dblClick(screen.getAllByRole('button')[0]);
     expect(screen.getByText('- £1.00')).toBeInTheDocument();
     userEvent.dblClick(screen.getAllByRole('button')[0]);
@@ -100,7 +100,7 @@ describe('<Checkout />', () => {
 
   it('should apply a discount on toilet paper, 6 for 5', () => {
     render(<App />);
-    expect(screen.getAllByText('£0')).toHaveLength(4);
+    expect(screen.getAllByText('£0.00')).toHaveLength(3);
     userEvent.dblClick(screen.getAllByRole('button')[2]);
     userEvent.dblClick(screen.getAllByRole('button')[2]);
     userEvent.dblClick(screen.getAllByRole('button')[2]);
@@ -136,5 +136,22 @@ describe('<Checkout />', () => {
     userEvent.dblClick(screen.getAllByRole('button')[2]);
     userEvent.dblClick(screen.getAllByRole('button')[0]);
     expect(screen.getByText('£1.65')).toBeInTheDocument();
+    userEvent.dblClick(screen.getAllByRole('button')[0]);
+    expect(screen.getByText('£2.65')).toBeInTheDocument();
+  });
+
+  it('should tally down the total discounts', () => {
+    render(<App />);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[2]);
+    userEvent.dblClick(screen.getAllByRole('button')[0]);
+    expect(screen.getByText('£1.65')).toBeInTheDocument();
+    userEvent.dblClick(screen.getAllByRole('button')[0]);
+    expect(screen.getByText('£2.65')).toBeInTheDocument();
+    userEvent.dblClick(screen.getAllByRole('button')[3]);
+    userEvent.dblClick(screen.getAllByRole('button')[3]);
+    userEvent.dblClick(screen.getAllByRole('button')[3]);
+    expect(screen.getByText('£2.00')).toBeInTheDocument();
   });
 });
