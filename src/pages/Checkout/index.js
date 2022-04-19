@@ -30,6 +30,9 @@ export default function Checkout() {
     if (item === 'Face Masks' && quantity % 2 === 0) {
       return previous + 1;
     }
+    if (item === 'Toilet Paper' && quantity % 6 === 0) {
+      return previous + 0.65;
+    }
     return previous;
   };
 
