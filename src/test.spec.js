@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Checkout from '.';
+import App from './App';
 
 describe('<Checkout />', () => {
   it('should show a header', () => {
-    render(<Checkout />);
+    render(<App />);
 
     expect(screen.getByText('Checkout')).toBeInTheDocument();
   });
