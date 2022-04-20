@@ -3,8 +3,8 @@ import {
   string, node, bool, func,
 } from 'prop-types';
 
-const buttonItem = 'mx-1 my-1 bg-orange-200 hover:bg-orange-600 transition-colors text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px]';
-const disabledBtn = 'cursor-not-allowed bg-gray-200 mx-1 text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px] text-white';
+const buttonItem = 'w-[40px] mr-1 my-1 bg-orange-200 hover:bg-orange-600 transition-colors text-xl rounded-md border border-solid';
+const disabledBtn = 'w-[40px] cursor-not-allowed bg-gray-200 mr-1 text-xl rounded-md border border-solid text-white';
 
 export default function Button({
   testId, children, disabled, handleClick, label, ...rest

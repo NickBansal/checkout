@@ -60,8 +60,8 @@ export default function Checkout() {
   const totalIsDiscounted = Boolean(totalDiscount);
 
   return (
-    <Table className="w-full mx-auto my-4 md:w-4/5">
-      <THead className="font-bold border-b-2 border-black border-dashed">
+    <Table className="w-full mx-auto my-12 md:w-4/5">
+      <THead>
         <Row>
           <Cell>Item</Cell>
           <Cell>Price</Cell>
