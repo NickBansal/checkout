@@ -108,14 +108,9 @@ export default function Checkout() {
                 <p className="w-1/3 block md:inline-block">
                   {item}
                   {' '}
-                  <span className="block md:inline-block">
-                    {' '}
-                    (
-                    {items[item].quantity}
-                    )
-
-                  </span>
-
+                  (
+                  {items[item].quantity}
+                  )
                 </p>
                 <p className="w-1/3">
                   £
@@ -127,6 +122,7 @@ export default function Checkout() {
                 <div className={buttonWrapper}>
                   <button
                     type="button"
+                    data-testid={`addBtn${index}`}
                     className={buttonItem}
                     onClick={() => addToBasket(item, items[item])}
                   >
@@ -135,6 +131,7 @@ export default function Checkout() {
                   </button>
                   <button
                     type="button"
+                    data-testid={`minusBtn${index}`}
                     className={disabled ? disabledBtn : buttonItem}
                     onClick={() => subtractFromBasket(item, items[item])}
                     disabled={disabled}
