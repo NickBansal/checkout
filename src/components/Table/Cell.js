@@ -8,10 +8,11 @@ export default function Cell({ children, className }) {
 }
 
 Cell.propTypes = {
-  children: node.isRequired,
+  children: node,
   className: string,
 };
 
 Cell.defaultProps = {
+  children: '',
   className: '',
 };

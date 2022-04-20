@@ -29,5 +29,9 @@ Button.propTypes = {
   children: node.isRequired,
   disabled: bool.isRequired,
   handleClick: func.isRequired,
-  label: string.isRequired,
+  label: string,
+};
+
+Button.defaultProps = {
+  label: '',
 };

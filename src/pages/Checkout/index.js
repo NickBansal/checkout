@@ -71,18 +71,15 @@ export default function Checkout() {
         </Row>
       </THead>
       <TBody>
-        {shoppingItems.map((item, index) => {
-          const props = {
-            item,
-            items,
-            index,
-            handleClick: updateBasket,
-          };
-
-          return (
-            <ShoppingItemRow {...props} />
-          );
-        })}
+        {shoppingItems.map((item, index) => (
+          <ShoppingItemRow
+            key={item}
+            item={item}
+            items={items}
+            index={index}
+            handleClick={updateBasket}
+          />
+        ))}
         <Row className="font-bold border-t-2 border-black border-dashed">
           <Cell />
           <Cell />

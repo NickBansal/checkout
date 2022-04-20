@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  string, objectOf, number, func,
+  string, shape, number, func,
 } from 'prop-types';
 
 import { Row, Cell } from '../Table';
@@ -14,7 +14,7 @@ export default function ShoppingItemRow({
   const isDiscounted = Number(items[item].discount) > 0;
 
   return (
-    <Row key={item}>
+    <Row>
       <Cell>
         {item}
       </Cell>
@@ -32,7 +32,7 @@ export default function ShoppingItemRow({
       <Cell className="w-1/5">
         <Button
           testId={`addBtn${index}`}
-          label="Add item to list"
+          label="add item to list"
           disabled={false}
           handleClick={() => handleClick(item, items[item], true)}
         >
@@ -53,7 +53,11 @@ export default function ShoppingItemRow({
 
 ShoppingItemRow.propTypes = {
   item: string.isRequired,
-  items: objectOf(number).isRequired,
+  items: shape({
+    quantity: number,
+    price: number,
+    discount: number,
+  }).isRequired,
   handleClick: func.isRequired,
   index: number.isRequired,
 };
