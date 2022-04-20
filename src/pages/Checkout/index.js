@@ -3,13 +3,12 @@ import React, { useState, useEffect } from 'react';
 
 import itemPrices from './itemPrices';
 
+import { setDiscounts, addItems, subtractItems } from './utils';
+
 const listItem = 'border-dotted border-2 p-4 text-base flex justify-between border-black items-center border-t-0';
 const buttonWrapper = 'border-dotted border-black border-l-2 pl-4 w-1/3 md:w-1/4 text-center';
 const buttonItem = 'mx-1 my-1 bg-orange-200 hover:bg-orange-600 transition-colors text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px]';
 const disabledBtn = 'cursor-not-allowed bg-gray-200 mx-1 text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px] text-white';
-
-const addItems = (a, b) => a + b;
-const subtractItems = (a, b) => a - b;
 
 export default function Checkout() {
   const shoppingItems = Object.keys(itemPrices);
@@ -29,20 +28,14 @@ export default function Checkout() {
     }, {}));
   }, []);
 
-  const itemDiscounts = (item, previous, quantity, add) => {
-    const sum = add ? addItems : subtractItems;
-    const totalQuantity = add ? quantity : quantity + 1;
-
-    if (item === 'Face Masks' && totalQuantity % 2 === 0) {
-      setTotalDiscount(sum(totalDiscount, 1));
-      return sum(previous, 1);
-    }
-    if (item === 'Toilet Paper' && totalQuantity % 6 === 0) {
-      setTotalDiscount(sum(totalDiscount, 0.65));
-      return sum(previous, 0.65);
-    }
-    return previous;
-  };
+  const itemDiscounts = (item, previous, quantity, add) => setDiscounts(
+    item,
+    add,
+    quantity,
+    totalDiscount,
+    previous,
+    setTotalDiscount,
+  );
 
   const updateBasket = (item, values, add) => {
     const sum = add ? addItems : subtractItems;
