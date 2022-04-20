@@ -99,7 +99,7 @@ export default function Checkout() {
           <Cell />
           <Cell />
           <Cell className="py-2">Total Discount:</Cell>
-          <Cell className="py-2">
+          <Cell className={`py-2 ${totalIsDiscounted ? 'text-red-500' : 'text-black'}`}>
             {totalIsDiscounted ? `- £${totalDiscount.toFixed(2)}` : '£0.00'}
           </Cell>
         </Row>

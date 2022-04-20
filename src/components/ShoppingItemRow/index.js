@@ -26,12 +26,13 @@ export default function ShoppingItemRow({
       <Cell>
         {items[item].quantity}
       </Cell>
-      <Cell>
+      <Cell className={isDiscounted ? 'text-red-500' : 'text-black'}>
         {isDiscounted ? `- £${Number(items[item].discount).toFixed(2)}` : '£0.00'}
       </Cell>
       <Cell className="w-1/5">
         <Button
           testId={`addBtn${index}`}
+          label="Add item to list"
           disabled={false}
           handleClick={() => handleClick(item, items[item], true)}
         >
@@ -39,6 +40,7 @@ export default function ShoppingItemRow({
         </Button>
         <Button
           testId={`minusBtn${index}`}
+          label="subtract item from list"
           disabled={disabled}
           handleClick={() => handleClick(item, items[item], false)}
         >
