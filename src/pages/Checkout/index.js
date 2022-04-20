@@ -39,12 +39,12 @@ export default function Checkout() {
   };
 
   const subtractItemDiscounts = (item, previous, quantity) => {
-    const lowerAmount = quantity < items[item].quantity;
-    if (item === 'Face Masks' && lowerAmount && (quantity - 1) % 2 === 0) {
+    // const lowerAmount = quantity < items[item].quantity;
+    if (item === 'Face Masks' && (quantity - 1) % 2 === 0) {
       setTotalDiscount(totalDiscount - 1);
       return previous - 1;
     }
-    if (item === 'Toilet Paper' && lowerAmount && (quantity + 1) % 6 === 0) {
+    if (item === 'Toilet Paper' && (quantity + 1) % 6 === 0) {
       setTotalDiscount(totalDiscount - 0.65);
       return previous - 0.65;
     }
@@ -88,12 +88,12 @@ export default function Checkout() {
   const totalIsDiscounted = Boolean(totalDiscount);
 
   return (
-    <div className="mx-0 my-12 md:mx-auto w-full lg:w-4/5">
+    <div className="w-full mx-0 my-12 md:mx-auto lg:w-4/5">
       <ul>
         <li className="flex w-4/5">
           <p className="w-1/3 ml-4 text-xl font-bold">Item</p>
-          <p className="w-1/3 text-xl font-bold -ml-4 md:-ml-2">Amount</p>
-          <p className="w-1/3 text-xl font-bold -ml-4">Discount</p>
+          <p className="w-1/3 -ml-4 text-xl font-bold md:-ml-2">Amount</p>
+          <p className="w-1/3 -ml-4 text-xl font-bold">Discount</p>
         </li>
 
         {shoppingItems.map((item, index) => {
