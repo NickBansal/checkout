@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 
-import itemPrices from '../../constants/ITEM_PRICES';
-import Button from '../../components/Buttons';
-import ListItem from '../../components/ListItem';
+import ITEM_PRICES from '../../constants/ITEM_PRICES';
+import ShoppingItemRow from '../../components/ShoppingItemRow';
+import Table, {
+  THead, TBody, Row, Cell,
+} from '../../components/Table';
 
 import { setDiscounts, addItems, subtractItems } from './utils';
 
-const listItemStyled = 'border-dotted border-2 p-4 text-base flex justify-between border-black items-center border-t-0 border-x-0 w-1/2';
-
 export default function Checkout() {
-  const shoppingItems = Object.keys(itemPrices);
+  const shoppingItems = Object.keys(ITEM_PRICES);
 
   const [items, setItems] = useState(undefined);
   const [total, setTotal] = useState(0);
@@ -50,7 +50,7 @@ export default function Checkout() {
         },
       });
     });
-    setTotal(sum(Number(total), Number(itemPrices[item])).toFixed(2));
+    setTotal(sum(Number(total), Number(ITEM_PRICES[item])).toFixed(2));
   };
 
   if (items === undefined) {
@@ -60,51 +60,62 @@ export default function Checkout() {
   const totalIsDiscounted = Boolean(totalDiscount);
 
   return (
-    <div className="w-full mx-0 my-12 md:mx-auto lg:w-4/5">
-      <ul>
-        <li className="flex w-4/5">
-          <p className="w-1/3 ml-4 text-xl font-bold">Item</p>
-          <p className="w-1/3 -ml-4 text-xl font-bold md:-ml-2">Amount</p>
-          <p className="w-1/3 -ml-4 text-xl font-bold">Discount</p>
-        </li>
-
+    <Table className="w-full mx-auto my-4 md:w-4/5">
+      <THead className="font-bold border-b-2 border-black border-dashed">
+        <Row>
+          <Cell>Item</Cell>
+          <Cell>Price</Cell>
+          <Cell>Amount</Cell>
+          <Cell>Discount</Cell>
+          <Cell />
+        </Row>
+      </THead>
+      <TBody>
         {shoppingItems.map((item, index) => {
           const props = {
-            item, items, updateBasket, index,
+            item,
+            items,
+            index,
+            handleClick: updateBasket,
           };
+
           return (
-            <ListItem {...props} />
+            <ShoppingItemRow {...props} />
           );
         })}
-        <li className="flex justify-end">
-          <div className={listItemStyled}>
-            <p>Total Amount:</p>
-            <p>
-              £
-              {!total ? '0.00' : total}
-            </p>
-          </div>
-        </li>
-        <li className="flex justify-end">
-          <div className={listItemStyled}>
-            <p>Total Discount:</p>
-            <p className={`${totalIsDiscounted ? 'text-red-500' : 'text-black'}`}>
-              {totalIsDiscounted ? `- £${totalDiscount.toFixed(2)}` : '£0.00'}
-            </p>
-          </div>
-        </li>
+        <Row className="font-bold border-t-2 border-black border-dashed">
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell className="py-2">Total Amount:</Cell>
+          <Cell className="py-2">
+            £
+            {!total ? '0.00' : total}
+          </Cell>
+        </Row>
 
-        <li className="flex justify-end">
-          <div className={listItemStyled}>
-            <p>Total Cost:</p>
-            <p>
-              £
-              {(total - totalDiscount).toFixed(2)}
-            </p>
-          </div>
-        </li>
+        <Row className="font-bold">
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell className="py-2">Total Discount:</Cell>
+          <Cell className="py-2">
+            {totalIsDiscounted ? `- £${totalDiscount.toFixed(2)}` : '£0.00'}
+          </Cell>
+        </Row>
 
-      </ul>
-    </div>
+        <Row className="font-bold">
+          <Cell />
+          <Cell />
+          <Cell />
+          <Cell className="py-2">Total Cost:</Cell>
+          <Cell className="py-2">
+            £
+            {(total - totalDiscount).toFixed(2)}
+          </Cell>
+        </Row>
+
+      </TBody>
+    </Table>
   );
 }
