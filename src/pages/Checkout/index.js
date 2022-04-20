@@ -12,7 +12,7 @@ export default function Checkout() {
   const shoppingItems = Object.keys(itemPrices);
 
   const [items, setItems] = useState(undefined);
-  const [total, setTotal] = useState('0');
+  const [total, setTotal] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
 
   useEffect(() => {
@@ -84,6 +84,9 @@ export default function Checkout() {
   if (items === undefined) {
     return null;
   }
+
+  const totalIsDiscounted = Boolean(totalDiscount);
+
   return (
     <div className="mx-0 my-12 md:mx-auto w-full lg:w-4/5">
       <ul>
@@ -145,20 +148,29 @@ export default function Checkout() {
           );
         })}
         <li className="flex justify-end">
-          <div className={`${listItem} border-x-0 w-1/2`}>
-            <p>Total Discount:</p>
+          <div className={`${listItem} border-x-0 w-1/2 `}>
+            <p>Total Amount:</p>
             <p>
               £
-              {totalDiscount.toFixed(2)}
+              {!total ? '0.00' : total}
             </p>
           </div>
         </li>
         <li className="flex justify-end">
+          <div className={`${listItem} border-x-0 w-1/2`}>
+            <p>Total Discount:</p>
+            <p className={`${totalIsDiscounted ? 'text-red-500' : 'text-black'}`}>
+              {totalIsDiscounted ? `- £${totalDiscount.toFixed(2)}` : '£0.00'}
+            </p>
+          </div>
+        </li>
+
+        <li className="flex justify-end">
           <div className={`${listItem} border-x-0 w-1/2 `}>
-            <p>Total:</p>
+            <p>Total Cost:</p>
             <p>
               £
-              {total}
+              {(total - totalDiscount).toFixed(2)}
             </p>
           </div>
         </li>
