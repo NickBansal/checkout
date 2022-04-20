@@ -20,7 +20,7 @@ export default function ShoppingItemRow({
       </Cell>
       <Cell>
         £
-        {Number(ITEM_PRICES[item]).toFixed(2)}
+        {Number(ITEM_PRICES[item].price).toFixed(2)}
       </Cell>
       <Cell>
         {items[item].quantity}

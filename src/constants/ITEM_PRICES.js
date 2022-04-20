@@ -1,4 +1,12 @@
 export default {
-  'Face Masks': 2.50,
-  'Toilet Paper': 0.65,
+  'Face Masks': {
+    price: 2.5,
+    discountAmount: 2,
+    discount: 1,
+  },
+  'Toilet Paper': {
+    price: 0.65,
+    discountAmount: 6,
+    discount: 0.65,
+  },
 };

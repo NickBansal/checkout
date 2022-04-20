@@ -50,7 +50,7 @@ export default function Checkout() {
         },
       });
     });
-    setTotal(sum(Number(total), Number(ITEM_PRICES[item])).toFixed(2));
+    setTotal(sum(Number(total), Number(ITEM_PRICES[item].price)).toFixed(2));
   };
 
   if (items === undefined) {
