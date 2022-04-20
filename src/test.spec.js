@@ -190,4 +190,28 @@ describe('<Checkout />', () => {
     userEvent.dblClick(getByTestId('minusBtn1'));
     expect(within(listItem).getByText('- £2.00')).toBeInTheDocument();
   });
+
+  it('should give the user a total amount with discounts taken away', () => {
+    render(<App />);
+    const { getAllByRole, getByTestId } = screen;
+    const totalAmount = getAllByRole('listitem')[3];
+    const totalDiscounted = getAllByRole('listitem')[5];
+
+    expect(within(totalAmount).getByText('£0.00')).toBeInTheDocument();
+    expect(within(totalDiscounted).getByText('£0.00')).toBeInTheDocument();
+    userEvent.dblClick(getByTestId('addBtn1'));
+    userEvent.dblClick(getByTestId('addBtn1'));
+    userEvent.dblClick(getByTestId('addBtn1'));
+    userEvent.dblClick(getByTestId('addBtn0'));
+    expect(within(totalAmount).getByText('£8.90')).toBeInTheDocument();
+    expect(within(totalDiscounted).getByText('£7.25')).toBeInTheDocument();
+    userEvent.dblClick(getByTestId('addBtn0'));
+    expect(within(totalAmount).getByText('£13.90')).toBeInTheDocument();
+    expect(within(totalDiscounted).getByText('£11.25')).toBeInTheDocument();
+    userEvent.dblClick(getByTestId('minusBtn1'));
+    userEvent.dblClick(getByTestId('minusBtn1'));
+    userEvent.dblClick(getByTestId('minusBtn1'));
+    expect(within(totalAmount).getByText('£10.00')).toBeInTheDocument();
+    expect(within(totalDiscounted).getByText('£8.00')).toBeInTheDocument();
+  });
 });
