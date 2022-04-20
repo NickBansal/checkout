@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 
-import itemPrices from './itemPrices';
+import itemPrices from '../../constants/ITEM_PRICES';
 import Button from '../../components/Buttons';
+import ListItem from '../../components/ListItem';
 
 import { setDiscounts, addItems, subtractItems } from './utils';
 
-const listItem = 'border-dotted border-2 p-4 text-base flex justify-between border-black items-center border-t-0';
-const buttonWrapper = 'border-dotted border-black border-l-2 pl-4 w-1/3 md:w-1/4 text-center';
+const listItemStyled = 'border-dotted border-2 p-4 text-base flex justify-between border-black items-center border-t-0 border-x-0 w-1/2';
 
 export default function Checkout() {
   const shoppingItems = Object.keys(itemPrices);
@@ -69,50 +69,15 @@ export default function Checkout() {
         </li>
 
         {shoppingItems.map((item, index) => {
-          const listItemStyled = index !== 0 ? listItem : `${listItem} border-t-2`;
-          const disabled = items[item].quantity === 0;
-          const isDiscounted = Number(items[item].discount) > 0;
-          const discountText = isDiscounted ? 'text-red-600' : 'text-black';
-
+          const props = {
+            item, items, updateBasket, index,
+          };
           return (
-            <li key={item}>
-              <div className={listItemStyled}>
-                <p className="w-1/3 mr-2">
-                  {item}
-                  {' '}
-                  (
-                  {items[item].quantity}
-                  )
-                </p>
-                <p className="w-1/3">
-                  £
-                  {Number(itemPrices[item]).toFixed(2)}
-                </p>
-                <p className={`w-1/3 ${discountText}`}>
-                  {isDiscounted ? `- £${Number(items[item].discount).toFixed(2)}` : '£0.00'}
-                </p>
-                <div className={buttonWrapper}>
-                  <Button
-                    testId={`addBtn${index}`}
-                    disabled={false}
-                    handleClick={() => updateBasket(item, items[item], true)}
-                  >
-                    +
-                  </Button>
-                  <Button
-                    testId={`minusBtn${index}`}
-                    disabled={disabled}
-                    handleClick={() => updateBasket(item, items[item], false)}
-                  >
-                    -
-                  </Button>
-                </div>
-              </div>
-            </li>
+            <ListItem {...props} />
           );
         })}
         <li className="flex justify-end">
-          <div className={`${listItem} border-x-0 w-1/2 `}>
+          <div className={listItemStyled}>
             <p>Total Amount:</p>
             <p>
               £
@@ -121,7 +86,7 @@ export default function Checkout() {
           </div>
         </li>
         <li className="flex justify-end">
-          <div className={`${listItem} border-x-0 w-1/2`}>
+          <div className={listItemStyled}>
             <p>Total Discount:</p>
             <p className={`${totalIsDiscounted ? 'text-red-500' : 'text-black'}`}>
               {totalIsDiscounted ? `- £${totalDiscount.toFixed(2)}` : '£0.00'}
@@ -130,7 +95,7 @@ export default function Checkout() {
         </li>
 
         <li className="flex justify-end">
-          <div className={`${listItem} border-x-0 w-1/2 `}>
+          <div className={listItemStyled}>
             <p>Total Cost:</p>
             <p>
               £
