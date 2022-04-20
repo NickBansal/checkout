@@ -92,8 +92,8 @@ export default function Checkout() {
       <ul>
         <li className="flex w-4/5">
           <p className="w-1/3 ml-4 text-xl font-bold">Item</p>
-          <p className="w-1/3 text-xl font-bold -ml-4">Amount</p>
-          <p className="w-1/3 text-xl font-bold -ml-2">Discount</p>
+          <p className="w-1/3 text-xl font-bold -ml-4 md:-ml-2">Amount</p>
+          <p className="w-1/3 text-xl font-bold -ml-4">Discount</p>
         </li>
 
         {shoppingItems.map((item, index) => {
@@ -105,7 +105,7 @@ export default function Checkout() {
           return (
             <li key={item}>
               <div className={listItemStyled}>
-                <p className="w-1/3 block md:inline-block">
+                <p className="w-1/3 mr-2">
                   {item}
                   {' '}
                   (

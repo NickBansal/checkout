@@ -7,12 +7,14 @@ describe('<Checkout />', () => {
   it('should show a header', () => {
     render(<App />);
     const { getByText } = screen;
+
     expect(getByText('Checkout')).toBeInTheDocument();
   });
 
   it('should update the total of face masks when a face mask is added', () => {
     render(<App />);
     const { getByText, getByTestId } = screen;
+
     userEvent.click(getByTestId('addBtn0'));
     expect(getByText('Face Masks (1)')).toBeInTheDocument();
   });
