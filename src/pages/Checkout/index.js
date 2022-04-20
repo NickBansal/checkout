@@ -44,7 +44,7 @@ export default function Checkout() {
     return previous;
   };
 
-  const updateBasket = (item, values, add = true) => {
+  const updateBasket = (item, values, add) => {
     const sum = add ? addItems : subtractItems;
 
     setItems((prevState) => {
@@ -104,7 +104,7 @@ export default function Checkout() {
                     type="button"
                     data-testid={`addBtn${index}`}
                     className={buttonItem}
-                    onClick={() => updateBasket(item, items[item])}
+                    onClick={() => updateBasket(item, items[item], true)}
                   >
                     +
 
