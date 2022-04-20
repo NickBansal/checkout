@@ -2,13 +2,12 @@
 import React, { useState, useEffect } from 'react';
 
 import itemPrices from './itemPrices';
+import Button from '../../components/Buttons';
 
 import { setDiscounts, addItems, subtractItems } from './utils';
 
 const listItem = 'border-dotted border-2 p-4 text-base flex justify-between border-black items-center border-t-0';
 const buttonWrapper = 'border-dotted border-black border-l-2 pl-4 w-1/3 md:w-1/4 text-center';
-const buttonItem = 'mx-1 my-1 bg-orange-200 hover:bg-orange-600 transition-colors text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px]';
-const disabledBtn = 'cursor-not-allowed bg-gray-200 mx-1 text-base md:text-xl px-0 md:px-2 rounded-md border border-solid w-[40px] text-white';
 
 export default function Checkout() {
   const shoppingItems = Object.keys(itemPrices);
@@ -93,25 +92,20 @@ export default function Checkout() {
                   {isDiscounted ? `- £${Number(items[item].discount).toFixed(2)}` : '£0.00'}
                 </p>
                 <div className={buttonWrapper}>
-                  <button
-                    type="button"
-                    data-testid={`addBtn${index}`}
-                    className={buttonItem}
-                    onClick={() => updateBasket(item, items[item], true)}
+                  <Button
+                    testId={`addBtn${index}`}
+                    disabled={false}
+                    handleClick={() => updateBasket(item, items[item], true)}
                   >
                     +
-
-                  </button>
-                  <button
-                    type="button"
-                    data-testid={`minusBtn${index}`}
-                    className={disabled ? disabledBtn : buttonItem}
-                    onClick={() => updateBasket(item, items[item], false)}
+                  </Button>
+                  <Button
+                    testId={`minusBtn${index}`}
                     disabled={disabled}
+                    handleClick={() => updateBasket(item, items[item], false)}
                   >
                     -
-
-                  </button>
+                  </Button>
                 </div>
               </div>
             </li>
