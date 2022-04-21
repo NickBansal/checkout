@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 
 import ITEM_PRICES from '../../constants/ITEM_PRICES';
@@ -9,9 +8,9 @@ import Table, {
 
 import { setDiscounts, addItems, subtractItems } from './utils';
 
-export default function Checkout() {
-  const shoppingItems = Object.keys(ITEM_PRICES);
+const shoppingItems = Object.keys(ITEM_PRICES);
 
+export default function Checkout() {
   const [items, setItems] = useState(undefined);
   const [total, setTotal] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
@@ -27,15 +26,6 @@ export default function Checkout() {
     }, {}));
   }, []);
 
-  const itemDiscounts = (item, previous, quantity, add) => setDiscounts(
-    item,
-    add,
-    quantity,
-    totalDiscount,
-    previous,
-    setTotalDiscount,
-  );
-
   const updateBasket = (item, values, add) => {
     const sum = add ? addItems : subtractItems;
 
@@ -46,7 +36,14 @@ export default function Checkout() {
         [item]: {
           ...values,
           quantity,
-          discount: itemDiscounts(item, prevState[item].discount, quantity, add),
+          discount: setDiscounts(
+            item,
+            add,
+            quantity,
+            totalDiscount,
+            prevState[item].discount,
+            setTotalDiscount,
+          ),
         },
       });
     });
